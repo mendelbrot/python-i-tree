@@ -5,7 +5,6 @@
 - [ ] implement the iterator
 
 
-
 ### In Progress
 
 
@@ -16,5 +15,5 @@
 
 ### Done
 
-
+- [x] build the shell of the I_Tree class
 
