@@ -1,13 +1,11 @@
 ### Todo
 
-- [ ] build the shell of the I_Tree class
-- [ ] implement the data input
 - [ ] implement the iterator
 
 
 ### In Progress
 
-
+- [ ] implement the data input
 
 ### On Hold
 
@@ -16,4 +14,5 @@
 ### Done
 
 - [x] build the shell of the I_Tree class
+- [x] push repo to github
 

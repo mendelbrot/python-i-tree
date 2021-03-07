@@ -1,5 +1,7 @@
 # i tree
 
+*an iterable for storing tree-like data in a memory efficient way*
+
 i is for iterable.
 
 this is my idea to have an iterator object that stores a large number of path-like entries that would for a tree.  it would store the tree in a very space-efficient way as a list of dictionaries.  This is a procedure I figured out by doing foobar challenge 5/1.  
