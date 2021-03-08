@@ -4,14 +4,14 @@ class ITree:
     def __init__(self):
         self.itree = [{}]
         self.terminals = []
-        self.last_level_terminal = False
+        self.LLT = False
 
-    def build(self, links = None, terminals = None, continue_level = False):
+    def build(self, links = None, t_links = None, continue_level = False):
         if not continue_level:
             self.itree.append({})
         prev_level = self.itree[-2]
         level = self.itree[-1]
-        for nodes, prev_nodes in links + terminals:
+        for nodes, prev_nodes in links + t_links:
             for n in nodes:
                 for n1 in prev_nodes:
                     k1, v1 = prev_level[n1]
@@ -21,22 +21,24 @@ class ITree:
                     except:
                         level[n] = (k1, [n1])
 
-        for nodes, _ in terminals:
-            self.terminals += nodes
+        li = len(self.itree) - 1
+        for nodes, _ in t_links:
+            for n in nodes:
+                self.terminals += (li, n)
 
     def prune(self, end_nodes):
         pass
 
     def len(self):
-        if self.last_level_terminal:
+        if self.LLT:
             total = 0
             for k, _ in self.itree[-1].values():
                 total += k
             return total
         
         total = 0
-        for level, node in self.terminals:
-            k, _ = self.itree[level][node]
+        for li, n in self.terminals:
+            k, _ = self.itree[li][n]
             total += k
         return total
 
