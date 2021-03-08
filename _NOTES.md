@@ -38,3 +38,60 @@ I'm thinking about what to call a list of incremental inputs.  They are all at t
 
 Also, should one be able to put in or delete the rad at a specific index?  I'm thinking probably not for put in: the object should have complete control over what index the new items go in, mainly because duplicate entries aren't useful/shouldn't be accommodated.    For remove, YES.  There should be the ability to remove items by value or by index.
 
+#### data inputs revisited 2021-03-07
+
+a path input can be called a *chain* a direct input adding to a dictionary item in one of the rows can be called a *link*.  
+
+before continuing with data inputs, I think i need to clarify how the data is stored.
+
+### data structure
+
+```
+link_data = 
+[
+	{<node id>: [<node id (link)>, ...], ...},
+	...
+]
+
+terminals_data = 
+[
+	[<node id>, ... ] <-- row
+	, ...
+]
+```
+
+there is a limitation with this data structure: it cannot store a bunch of separate paths/chains independently.  for example: if you store these paths:
+
+```
+(1) [a, b, c]
+(2) [a, e, c, d]
+```
+
+then that implies that you're automatically also storing this path:
+
+```
+(3) [a, e, c]
+```
+
+This is because: from (1), `c` is a terminal node at index 3.  the path (2) goes through c at index 3.  hence, (2) truncated at index 3 is also stored as a path.
+
+the i-tree data structure is somewhat a generalization of a rooted tree.  It's a multi-rooted, multi-terminal rooted tree.  
+
+multi-rooted because it's a set of rooted trees sharing the same nodes, and having this property: 
+
+> if the trees cross by having the same node at the same level (distance from the root), then they must overlap: for any paths `p` in the first tree and `q` in the second tree going through the crossover node `n` , there will be paths `p|n|q` and `q|n|p` that start as path `p` and switch through `n` to path `q` and vice versa.
+
+#### data structure 2021-03-08
+
+it's up to the user entering the links to mark the end links as terminals.  The object will not assume that all links on the last level are terminal.  maybe there could be a feature to allow the setting last_level_terminal, or some such.  
+
+### reloading a module
+
+```
+import importlib
+import itree
+importlib.reloaad(itree)
+```
+
+
+
