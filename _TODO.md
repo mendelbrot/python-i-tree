@@ -1,11 +1,10 @@
 ### Todo
 
-- [ ] implement the iterator
-
 
 ### In Progress
 
 - [ ] implement the data input
+- [ ] implement the iterator
 
 ### On Hold
 

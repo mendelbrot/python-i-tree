@@ -93,5 +93,10 @@ import itree
 importlib.reloaad(itree)
 ```
 
+### iterators and generators 2021-03-10
 
+https://anandology.com/python-practice-book/iterators.html
 
+https://www.freecodecamp.org/news/how-and-why-you-should-use-python-generators-f6fb56650888/
+
+I decided to implement a generator.  It is started writing the generator and also started a pruning function.  much revision is still needed.
