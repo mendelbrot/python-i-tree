@@ -2,12 +2,15 @@ class ITree:
     def __init__(self):
         self.links = [{}]
         self.counts = [{}]
+    
+    def __iter__(self):
+        return ITree_iter(link_lists)
 
-    # input: a list of node identifiers
+    # input: a list of nodes
     # starts the itree and then starts a new level
     def start(self, nodes):
         for node in nodes:
-            self.links[0][node] = []
+            self.links[0][node] = None
             self.counts[0][node] = 1
         
         # start next level
@@ -18,20 +21,19 @@ class ITree:
     # a list, each element is a tuple: a previous_node - node link.
     # [...(prev_node, node)]
     def add(self, new_links):
-        prev_links = self.links[-2]
         links = self.links[-1]
         prev_counts = self.counts[-2]
         counts = self.counts[-1]
         for n1, n in new_links:
             k1 = prev_counts[n1]
             try:
-                links[n] += [n1]
+                links[n] |= set([n1])
                 counts[n] += k1
             except:
-                links[n] = [n1]
+                links[n] = set([n1])
                 counts[n] = k1
     
-    # this level is finished.  prune and start the next level.
+    # prune and start the next level.
     def next(self):
         # prune
         level = len(self.links) - 1
@@ -54,3 +56,36 @@ class ITree:
     # returns the total number of paths in the itree
     def len(self):
         return sum(self.counts[-1].values())
+    
+class ITree_iter:
+    def __init__(self, links):
+
+        # convert the dictionaries and sets into lists for iteration
+        self.node_lists = [[]]
+        self.link_lists = [[]]
+
+        for node in links[0].keys():
+            self.node_lists[0].append(node)
+            self.link_lists[0].append(None)
+
+        for level in links[1:]:
+            next_node_list = []
+            next_link_list =[]
+            
+            for node, links in level.items():
+                next_node_list.append(node)
+                next_link_list.append(links)
+
+            self.node_lists.append(next_node_list)
+            self.link_lists.append(next_link_list)
+
+        # path stores the path we are currently on
+        # cursor keeps track of what (level, node) was changed last
+        self.path = [node_list[0] for node_list in node_lists]
+        self.cursor = (0,0)
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        raise StopIteration()

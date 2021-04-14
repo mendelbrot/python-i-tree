@@ -130,3 +130,36 @@ To focus on the mvp, I'm going to forget about the terminals for now, and say th
 ```
 from importlib import reload
 ```
+
+### 2021-04-14 data structure
+
+I switched from a list of links to a set of links.  Also, instead of combining the counts and possibly other data into one big, structure, I duplicate the structure for each type of data I want to include.  That makes it simpler and easier to extend.
+
+```
+links =
+[
+    ...
+    {...<node>: {...prev_node}}
+]
+
+counts =
+[
+    ...
+    {...<node>: count}
+]
+
+data =
+[
+    ...
+    {...<node>: data}
+]
+
+```
+
+### ordered set
+
+for iterating it would be nice for the set of links to have an order so maybe it would be better to use a list.  Python 3 dictionaries have an order, I thought why can't sets have an order too?  I found a datatype that does this:
+
+https://pypi.org/project/ordered-set/
+
+I think this may be over complicted.  Instead I can duplicate the structure, and store sets and lists.
