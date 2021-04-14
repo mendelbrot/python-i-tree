@@ -100,3 +100,33 @@ https://anandology.com/python-practice-book/iterators.html
 https://www.freecodecamp.org/news/how-and-why-you-should-use-python-generators-f6fb56650888/
 
 I decided to implement a generator.  It is started writing the generator and also started a pruning function.  much revision is still needed.
+
+### 2021-04-14
+
+I's been a while.  I'm looking at this again with the intention of getting an mvp going.  In iterate through the paths, it's easiest if the dead paths are pruned.  
+
+For building the i-tree, I think what it should do is allow you to put in the links for one level, then have a function, like next(), that prunes all of the dead paths that were not continued in this level, and then goes to the next level.  
+
+The will get built level bt level, with something like 
+
+```
+Tree.add(...links)
+Tree.next()
+Tree.add(...links)
+Tree.next()
+```
+
+It will be iterated over when it's done being built:
+
+```
+for i in Tree:
+    print(i);
+```
+
+To focus on the mvp, I'm going to forget about the terminals for now, and say that the terminals are the links at the end level since this is my use case anyway.  Also, for now I'm going to implement the class as an iterator that can only be iterated through one time.
+
+### python3 reload:
+
+```
+from importlib import reload
+```
